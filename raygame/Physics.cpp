@@ -8,7 +8,8 @@ PhysicsObject::PhysicsObject()
 	forces = { 0, 0 };
 
 	mass = 1.0f;
-	drag = 1.0f;
+	drag = 0.5f;
+	gravity = 98.1;
 }
 
 void PhysicsObject::TickPhys(float delta)
@@ -43,7 +44,8 @@ void PhysicsObject::AddImpluse(glm::vec2 impulse)
 
 void PhysicsObject::AddAccel(glm::vec2 accel)
 {
-	assert(false);
+	forces += accel;
+	//assert(false);
 }
 
 void PhysicsObject::AddVelocityChange(glm::vec2 delta)

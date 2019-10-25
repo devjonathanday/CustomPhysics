@@ -4,7 +4,7 @@
 
 Game::Game()
 {
-	targetFixedStep = 1.0f / 30.0f;
+	targetFixedStep = 1.0f / 60.0f;
 	accumulatedFixedTime = 0.0f;
 }
 
@@ -35,9 +35,15 @@ void Game::Tick()
 		newObject.pos = { mousePos.x, mousePos.y };
 
 		if (mb0)
+		{
 			newObject.collider = Circle{ 15.0f };
+			newObject.mass = 1.0f;
+		}
 		else
+		{
 			newObject.collider = AABB{ {15, 15} };
+			newObject.mass = 2.0f;
+		}
 	}
 }
 
@@ -49,6 +55,8 @@ void Game::TickPhys()
 	for (auto& i : physicsObjects)
 	{
 		i.TickPhys(targetFixedStep);
+		i.AddAccel({ 0, i.gravity });
+		//if (IsKeyDown(KEY_W)) i.AddForce({ 0, -150 });
 	}
 
 	for (auto& i : physicsObjects)
@@ -57,8 +65,19 @@ void Game::TickPhys()
 		{
 			if (&i == &j) { continue; }
 
-			i.collider.match([i, j](Circle c) { if (CheckCircleX(i.pos, c, j.pos, j.collider)) { std::cout << "Circle collision!" << std::endl; }},
-							 [i, j](AABB a)   { if (CheckAABBX(i.pos, a, j.pos, j.collider))   { std::cout << "AABB collision!" << std::endl; }});
+			bool collision = false;
+
+			i.collider.match([i, j, &collision](Circle c) { if (CheckCircleX(i.pos, c, j.pos, j.collider)) { collision = true; }},
+							 [i, j, &collision](AABB a)   { if (CheckAABBX(i.pos, a, j.pos, j.collider))   { collision = true; }});
+
+			if (collision) { ResolvePhysicsBodies(i, j); }
+
+			if (i.pos.y > GetScreenHeight())
+				i.pos.y = 0;
+			if (i.pos.x < 0)
+				i.pos.x = GetScreenWidth();
+			if (i.pos.x > GetScreenWidth())
+				i.pos.x = 0;
 		}
 	}
 }
@@ -67,7 +86,7 @@ void Game::Draw() const
 {
 	BeginDrawing();
 
-	ClearBackground(RAYWHITE);
+	ClearBackground(BLACK);
 
 	for (const auto& i : physicsObjects)
 	{

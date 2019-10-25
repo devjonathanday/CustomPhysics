@@ -25,3 +25,9 @@ bool CheckAABBX(glm::vec2 posA, AABB lhs, glm::vec2 posB, Shape rhs);
 
 void DrawCircleCollider(glm::vec2 pos, float radius);
 void DrawAABBCollider(glm::vec2 pos, glm::vec2 halfExtents);
+
+void ResolvePhysicsBodies(class PhysicsObject& lhs, class PhysicsObject& rhs);
+
+void ResolveCollision(glm::vec2 posA, glm::vec2 velA, float massA,
+					  glm::vec2 posB, glm::vec2 velB, float massB,
+					  float elasticity, glm::vec2 normal, glm::vec2* dst);

@@ -23,4 +23,5 @@ bool CheckCircleAABB(glm::vec2 posA, Circle circle, glm::vec2 posB, AABB aabb);
 bool CheckCircleX(glm::vec2 posA, Circle lhs, glm::vec2 posB, Shape rhs);
 bool CheckAABBX(glm::vec2 posA, AABB lhs, glm::vec2 posB, Shape rhs);
 
-void Draw(glm::vec2 pos);
+void DrawCircleCollider(glm::vec2 pos, float radius);
+void DrawAABBCollider(glm::vec2 pos, glm::vec2 halfExtents);

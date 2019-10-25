@@ -71,7 +71,6 @@ void Game::Draw() const
 
 	for (const auto& i : physicsObjects)
 	{
-		i.collider.draw
 		i.Draw();
 	}
 

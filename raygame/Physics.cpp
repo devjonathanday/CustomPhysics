@@ -26,7 +26,8 @@ void PhysicsObject::TickPhys(float delta)
 
 void PhysicsObject::Draw() const
 {
-	collider
+	collider.match([this](Circle s) { DrawCircleCollider(pos, s.radius); },
+				   [this](AABB s)   { DrawAABBCollider(pos, s.halfExtents); });
 	//DrawCircleLines(pos.x, pos.y, 15.0f, RED);
 }
 

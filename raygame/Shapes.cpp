@@ -38,9 +38,15 @@ bool CheckAABBX(glm::vec2 posA, AABB lhs, glm::vec2 posB, Shape rhs)
 					 [posA, lhs, posB](AABB s)   { return CheckAABBAABB(posA, lhs, posB, s); });
 }
 
-void Draw(glm::vec2 pos)
+void DrawCircleCollider(glm::vec2 pos, float radius)
 {
+	DrawCircleLines(pos.x, pos.y, radius, RED);
+}
 
+void DrawAABBCollider(glm::vec2 pos, glm::vec2 halfExtents)
+{
+	DrawRectangleLines(pos.x - halfExtents.x, pos.y - halfExtents.y,
+		               halfExtents.x * 2, halfExtents.y * 2, RED);
 }
 
 //void Circle::Draw(glm::vec2 pos)

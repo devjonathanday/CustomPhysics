@@ -38,11 +38,13 @@ void Game::Tick()
 		{
 			newObject.collider = Circle{ 15.0f };
 			newObject.mass = 1.0f;
+			//newObject.gravity = 0;
 		}
 		else
 		{
 			newObject.collider = AABB{ {15, 15} };
-			newObject.mass = 2.0f;
+			newObject.mass = 1.0f;
+			//newObject.gravity = 0;
 		}
 	}
 }
